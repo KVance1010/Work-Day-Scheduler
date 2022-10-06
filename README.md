@@ -1,10 +1,15 @@
-# 05 Third-Party APIs: Work Day Scheduler
+# Work Day Scheduler
 
-## Your Task
+## Overview
 
-Create a simple calendar application that allows a user to save events for each hour of the day by modifying starter code. This app will run in the browser and feature dynamically updated HTML and CSS powered by jQuery.
+The application allows the user to save their appointments to a simple day planner. Appointments can be saved and the user can come back to the planner throughout the day.Furthermore, the application will change color depending on the hour of the day with green being in the future, red as current hour, and grey as the past. 
 
-You'll need to use the [Moment.js](https://momentjs.com/) library to work with date and time. Be sure to read the documentation carefully and concentrate on using Moment.js in the browser.
+### learning points
+
+- leverage third-party APIs like CSS frameworks, JavaScript libraries, and custom fonts.
+- Use jQuery to perform DOM manipulation and traversals and implement interactivity using event handlers.
+- Integrate Bootstrap components in HTML files to quickly build user interfaces.
+- Use Moment.js to format dates and calculate time differences.
 
 ## User Story
 
@@ -32,58 +37,65 @@ WHEN I refresh the page
 THEN the saved events persist
 ```
 
-The following animation demonstrates the application functionality:
+## Technologies
 
-![A user clicks on slots on the color-coded calendar and edits the events.](./Assets/images/05-third-party-apis-challenge-demo.gif)
+- **JQuery**
+- **Moment.js**
+- **Bootstrap**
+- **FontAwesome**
+- **Google-Fonts**
+- **JavaScript**
+- **HTML**
+- **CSS**
 
+## Screenshot/mockup
 
-## Grading Requirements
+![Schedule at the start of the day](./assets/images/SOD.jpg)
+Morning
+![Schedule at the mid day](./assets/images/MD.jpg)
+Lunch
+![Schedule at the end of day](./assets/images/EOD.jpg)
+Done
 
-This challenge is graded based on the following criteria: 
+## CodeSnippets
 
-### Technical Acceptance Criteria: 40%
+### Click event handlers for save buttons
 
-* Satisfies all of the above acceptance criteria plus the following:
+```JQuery
+$('i').on('click', (event) => {
+let savedNote = $(event.target);
+let iconId = savedNote.parent().siblings().eq(1).attr("id");
+let scheduleTask = savedNote.parent().siblings().eq(1).val();
+workSchedule[iconId] = scheduleTask;
+localStorage.setItem('workSchedule', JSON.stringify(workSchedule));
+});
+```
 
-  * Uses a date utility library to work with date and time
+### Highlight the different times of the day with past, present, or future
 
-### Deployment: 32%
+```JQuery
+if (currentHour >= 9 || currentHour <= 17) {
+	for (let timeSlot of timeSlots) {
+		if (timeSlot.data("timeMil") < currentHour) {
+			timeSlot.children().eq(1).addClass('past');
+		} else if (timeSlot.data("timeMil") == currentHour) {
+			timeSlot.children().eq(1).removeClass('present');
+		} else {
+			timeSlot.children().eq(1).removeClass('future');
+	}
+}
+```
 
-* Application deployed at live URL
+## License
 
-* Application loads with no errors
+Please refer to the LICENSE in the repo.
 
-* Application GitHub URL submitted
+## Links
 
-* GitHub repo contains application code
+### live Link
 
-### Application Quality: 15%
+[Live website] https://kvance1010.github.io/Work-Day-Scheduler/
 
-* Application user experience is intuitive and easy to navigate
+### LinkedIn
 
-* Application user interface style is clean and polished
-
-* Application resembles the mock-up functionality provided in the challenge instructions
-
-### Repository Quality: 13%
-
-* Repository has a unique name
-
-* Repository follows best practices for file structure and naming conventions
-
-* Repository follows best practices for class/id naming conventions, indentation, quality comments, etc.
-
-* Repository contains multiple descriptive commit messages
-
-* Repository contains quality README file with description, screenshot, and link to deployed application
-
-## Review
-
-You are required to submit the following for review:
-
-* The URL of the deployed application
-
-* The URL of the GitHub repository, with a unique name and a README describing the project
-
-- - -
-© 2022 Trilogy Education Services, LLC, a 2U, Inc. brand. Confidential and Proprietary. All Rights Reserved.
+[LinkedIn] https://www.linkedin.com/in/kyle-s-vance
