@@ -28,91 +28,20 @@ const displayUserNotes = function () {
 // Loop that sets the colors of the schedule
 const updateHour = function () {
 	// let currentHour = moment().format('H');
-	let currentHour =16;
-
+	let currentHour = 16;
 	if (currentHour >= 9 || currentHour <= 17) {
-		for (let timeSlot of timeSlots) {
-			if (timeSlot.data("timeMil") < currentHour) {
-				timeSlot.children().eq(1).addClass('past');
-			} else if (timeSlot.data("timeMil") == currentHour) {
-				timeSlot.children().eq(1).removeClass('present');
+		for (let i = 9; i <= 17; i++) {
+			let timeId = '#' + i;
+			console.log(timeId);
+			if (currentHour > i) {
+				$(timeId).addClass('past');
+			} else if (currentHour == i) {
+				$(timeId).addClass('present');
 			} else {
-				timeSlot.children().eq(1).removeClass('future');
+				$(timeId).addClass('future');
 			}
 		}
-		// if (currentHour > 9) {
-		// 	$('#9').addClass('past');
-		// } else if (currentHour >= 9 && currentHour < 10) {
-		// 	$('#9').addClass('present');
-		// } else {
-		// 	$('#9').addClass('future');
-
-		// }
-		// if (currentHour > 10) {
-		// 	$('#10').addClass('past');
-		// } else if (currentHour >= 10 && currentHour < 11) {
-		// 	$('#10').addClass('present');
-		// } else {
-		// 	$('#10').addClass('future');
-		// }
-		// if (currentHour > 11) {
-		// 	$('#11').addClass('past');
-		// } else if (currentHour >= 11 && currentHour < 12) {
-		// 	$('#11').addClass('present');
-		// } else {
-		// 	$('#11').addClass('future');
-		// }
-		// if (currentHour > 12) {
-		// 	$('#12').addClass('past');
-		// } else if (currentHour >= 12 && currentHour < 13) {
-		// 	$('#12').addClass('present');
-		// } else {
-		// 	$('#12').addClass('future');
-		// }
-		// if (currentHour > 13) {
-		// 	$('#13').addClass('past');
-		// } else if (currentHour >= 13 && currentHour < 14) {
-		// 	$('#13').addClass('present');
-		// } else {
-		// 	$('#13').addClass('future');
-		// }
-		// if (currentHour > 14) {
-		// 	$('#14').addClass('past');
-		// } else if (currentHour >= 14 && currentHour < 15) {
-		// 	$('#14').addClass('present');
-		// } else {
-		// 	$('#14').addClass('future');
-		// }
-		// if (currentHour > 15) {
-		// 	$('#15').addClass('past');
-		// } else if (currentHour >= 15 && currentHour < 16) {
-		// 	$('#15').addClass('present');
-		// } else {
-		// 	$('#15').addClass('future');
-		// }
-		// if (currentHour > 16) {
-		// 	$('#16').addClass('past');
-		// } else if (currentHour >= 16 && currentHour < 17) {
-		// 	$('#16').addClass('present');
-		// } else {
-		// 	$('#16').addClass('future');
-		// }
-		// if (currentHour > 17) {
-		// 	$('#17').addClass('past');
-		// } else if (currentHour >= 17 && currentHour < 18) {
-		// 	$('#17').addClass('present');
-		// } else {
-		// 	$('#17').addClass('future');
-		// }
 	}
-
-
-// updates the times on the page every 2 mins
-const updateFeature = function () {
-	setInterval(function () {
-		displayTime();
-        updateHour();
-	}, 1000);//100000
 };
 
 // sets the main time of the page
@@ -122,14 +51,15 @@ const displayTime = function () {
 
 // click event handlers for save buttons
 $('i').on('click', (event) => {
-let savedNote = $(event.target);
-let iconId = savedNote.parent().siblings().eq(1).attr("id");
-let scheduleTask = savedNote.parent().siblings().eq(1).val();
-console.log(iconId);
-workSchedule[iconId] = scheduleTask;
-localStorage.setItem('workSchedule', JSON.stringify(workSchedule));
+	let savedNote = $(event.target);
+	let iconId = savedNote.parent().siblings().eq(1).attr('id');
+	let scheduleTask = savedNote.parent().siblings().eq(1).val();
+	console.log(iconId);
+	workSchedule[iconId] = scheduleTask;
+	localStorage.setItem('workSchedule', JSON.stringify(workSchedule));
 });
 
-// updateHour();
 updateFeature();
 displayUserNotes();
+updateHour();
+displayTime();
