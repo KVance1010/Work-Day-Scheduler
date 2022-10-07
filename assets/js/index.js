@@ -26,14 +26,14 @@ const displayUserNotes = function () {
 	}
 };
 
-// sets the am or pm text content
-const setAMPM = function (i, count) {
-	if (count <= 4) {
-		return (i += ' AM');
-	} else {
-		return (i += ' PM');
-	}
-};
+// // sets the am or pm text content
+// const setAMPM = function (i, count) {
+// 	if (count <= 4) {
+// 		return (i += ' AM');
+// 	} else {
+// 		return (i += ' PM');
+// 	}
+// };
 
 // Loop that sets the colors of the schedule
 const updateHour = function () {
